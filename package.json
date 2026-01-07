@@ -1,12 +1,21 @@
 {
-  "name": "video-proxy",
+  "name": "video-proxy-server",
   "version": "1.0.0",
+  "description": "خادم بروكسي للفيديو مع حماية DRM",
   "main": "proxy-server.js",
   "scripts": {
-    "start": "node proxy-server.js"
+    "start": "node proxy-server.js",
+    "dev": "node proxy-server.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
+  "keywords": ["video", "proxy", "drm", "streaming"],
+  "author": "Video Proxy",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
     "axios": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
