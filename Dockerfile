@@ -1,8 +1,13 @@
 FROM flussonic/flussonic:v26.01-22
 
-# نسخ تكوينات مخصصة
-COPY flussonic.conf /etc/flussonic/flussonic.conf
-COPY conf.d/ /etc/flussonic/conf.d/
+# إنشاء المجلدات الأساسية
+RUN mkdir -p /etc/flussonic/conf.d /var/www/hls /var/dvr
 
-# فتح المنافذ
+# نسخ ملف التكوين الرئيسي
+COPY flussonic.conf /etc/flussonic/flussonic.conf
+
+# فتح المنافذ المطلوبة
 EXPOSE 80 443 1935 554 8080
+
+# تشغيل Flussonic
+CMD ["/usr/bin/flussonic", "--no-daemon"]
