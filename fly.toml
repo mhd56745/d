@@ -1,28 +1,36 @@
-app = "flussonic-fly"
-primary_region = "iad"  # أمريكا الشمالية
+app = 'd--j'
+primary_region = 'cdg'
 
 [build]
-  image = "flussonic/flussonic:v26.01-22"
 
-[env]
-  FLUSSONIC_LICENSE = "YOUR_LICENSE_KEY"
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  
+  [[http_service.checks]]
+    interval = 10000
+    grace_period = "5s"
+    method = "get"
+    path = "/"
+    protocol = "http"
+    timeout = 2000
+    tls_skip_verify = false
 
 [[services]]
-  internal_port = 80
+  internal_port = 1935
   protocol = "tcp"
   
   [[services.ports]]
-    port = 80
-    handlers = ["http"]
-    
-  [[services.ports]]
-    port = 443
-    handlers = ["tls", "http"]
-    
-  [[services.ports]]
     port = 1935
     handlers = ["tcp"]
-    
+
+[[services]]
+  internal_port = 554
+  protocol = "tcp"
+  
   [[services.ports]]
     port = 554
     handlers = ["tcp"]
@@ -30,4 +38,8 @@ primary_region = "iad"  # أمريكا الشمالية
 [[vm]]
   cpu_kind = "shared"
   cpus = 2
-  memory_mb = 4096
+  memory_mb = 2048  # Flussonic يحتاج 2GB على الأقل
+
+[mounts]
+  source = "flussonic_data"
+  destination = "/var/www"
