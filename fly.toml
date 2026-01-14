@@ -1,0 +1,33 @@
+app = "flussonic-fly"
+primary_region = "iad"  # أمريكا الشمالية
+
+[build]
+  image = "flussonic/flussonic:v26.01-22"
+
+[env]
+  FLUSSONIC_LICENSE = "YOUR_LICENSE_KEY"
+
+[[services]]
+  internal_port = 80
+  protocol = "tcp"
+  
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+    
+  [[services.ports]]
+    port = 1935
+    handlers = ["tcp"]
+    
+  [[services.ports]]
+    port = 554
+    handlers = ["tcp"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 2
+  memory_mb = 4096
